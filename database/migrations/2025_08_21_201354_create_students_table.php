@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('matricule')->unique();
             $table->enum('stus', ['regulier', 'irregulier', 'demisionnaire', 'exclu', 'observation'])->default('regulier');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->$table->timestamps();
+            $table->timestamps();
         });
     }
 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->unique();
             $table->string('address');
+            $table->string('password');
             $table->softDeletes();
             $table->string('slug');
             $table->rememberToken();
@@ -40,6 +41,7 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
     }
+
 
     /**
      * Reverse the migrations.

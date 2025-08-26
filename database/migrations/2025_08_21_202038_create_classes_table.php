@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('classe_code'); //code or number of  te classe
-            $table->foreignId('classe_id')->constrained('classes')->onDelete('cascade');
+            $table->foreignId('speciality_id')->constrained('specialities')->onDelete('cascade');
             $table->timestamps();
         });
     }

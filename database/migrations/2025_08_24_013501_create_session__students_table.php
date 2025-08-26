@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('session__students', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
-            $table->foreignId('session_id')->constrained('Sessions')->onDelete('cascade');
+            $table->foreignId('session_id')->constrained('cours_sessions')->onDelete('cascade');
             $table->boolean('present');
             $table->boolean('justifie');
             $table->text('justificatif');

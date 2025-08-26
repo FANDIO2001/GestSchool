@@ -18,8 +18,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
+        'rule',
         'email',
+        'phone',
+        'address',
+        'slug',
         'password',
     ];
 
@@ -32,6 +37,28 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /***
+     * gestion des relations entre la table user et autres tables
+     * table responsibles
+     * students
+     * teachers
+     */
+
+    public function teacher()
+    {
+        return $this->hasOne(Teacher::class);
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    public function responsible()
+    {
+        return $this->hasOne(Responsible::class);
+    }
 
     /**
      * Get the attributes that should be cast.
