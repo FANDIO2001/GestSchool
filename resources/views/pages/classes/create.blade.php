@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="w-full max-w-xl bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+    <div class="bg-gray-100 m-5 mb-0 p-5 shadow-lg ">
 
         <h2 class="text-3xl font-extrabold text-center mb-6 text-gray-800">Créer une nouvelle Classe</h2>
 
-        <form method="POST" action="{{ route('pages.classes.create') }}">
+        <form method="POST" action=" ">
             @csrf
 
             @if ($errors->any())
@@ -21,23 +21,15 @@
 
             <div class="mb-4">
                 <label for="name" class="block text-gray-700 text-sm font-semibold mb-2">Nom de la Classe</label>
-                <input 
-                    type="text" 
-                    id="name" 
-                    name="name" 
-                    value="{{ old('name') }}"
+                <input type="text" id="name" name="name" value="{{ old('name') }}"
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Ex: 6e A" 
-                    required autofocus>
+                    placeholder="Ex: 6e A" required autofocus>
             </div>
 
             <div class="mb-4">
                 <label for="level" class="block text-gray-700 text-sm font-semibold mb-2">Niveau</label>
-                <select 
-                    id="level" 
-                    name="level" 
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required>
+                <select id="level" name="level"
+                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                     <option value="">Sélectionnez un niveau</option>
                     <option value="6e">6ème</option>
                     <option value="5e">5ème</option>
@@ -49,8 +41,7 @@
                 </select>
             </div>
 
-            <button 
-                type="submit" 
+            <button type="submit"
                 class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
                 Créer la Classe
             </button>

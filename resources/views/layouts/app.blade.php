@@ -53,7 +53,7 @@
                 @include('layouts.components.navbar')
                 <!-- End Navbar -->
             </div>
-
+            <hr style="height: 5px;background-color:blue;">
             <div class="container">
                 @yield('content')
             </div>
