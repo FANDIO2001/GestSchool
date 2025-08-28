@@ -60,11 +60,11 @@
               <li class="nav-item topbar-user dropdown hidden-caret">
                   <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
                       <div class="avatar-sm">
-                          <img src="assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle" />
+                          <img src="assets/img/loic.jpg" alt="..." class="avatar-img rounded-circle" />
                       </div>
                       <span class="profile-username">
-                          <span class="op-7">Hi,</span>
-                          <span class="fw-bold">RUBIN</span>
+                          <span class="op-7">Hello,</span>
+                          <span class="fw-bold">FRANCK</span>
                       </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -72,12 +72,11 @@
                           <li>
                               <div class="user-box">
                                   <div class="avatar-lg">
-                                      <img src="assets/img/profile.jpg" alt="image profile"
-                                          class="avatar-img rounded" />
+                                      <img src="assets/img/loic.jpg"alt="image profile"class="avatar-img rounded" />
                                   </div>
                                   <div class="u-text">
-                                      <h4>RUBIN</h4>
-                                      <p class="text-muted">rubin@gmail.com</p>
+                                      <h4>franck</h4>
+                                      <p class="text-muted">ghomsifranch@gmail.com</p>
                                   </div>
                               </div>
                           </li>
