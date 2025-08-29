@@ -63,14 +63,14 @@ Route::prefix('specialities')->name('specialities.')->controller(SpecialityContr
 //Gestion des classes---------------------------------
 // ->middleware(['auth', RoleMiddleware::class . ':responsable'])
 Route::prefix('classes')->name('classes.')->controller(ClasseController::class)->group(function () {
-    Route::get('/', 'seance')->name('index');
+    Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
     Route::get('/{id}', 'show')->name('show');
     Route::get('/{id}/edit', 'edit')->name('edit');
     Route::put('/{id}', 'update')->name('update');
     Route::delete('/{id}', 'delete')->name('delete');
-    Route::delete('/{id}/eleves', 'elevesParClasse')->name('eleves');
+    // Route::delete('/{id}/eleves', 'elevesParClasse')->name('eleves');
 });
 
 //Gestion des eleves---------------------------------

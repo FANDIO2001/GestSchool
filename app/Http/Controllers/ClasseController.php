@@ -3,68 +3,63 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Classe; 
 
 class ClasseController extends Controller
 {
     /**
-     * Affiche le formulaire pour créer une nouvelle classe.
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
      */
     public function create()
     {
+        //
         return view('pages.classes.create');
     }
 
     /**
-     * Stocke une nouvelle classe dans la base de données.
+     * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // 1. Validation des données
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'level' => 'required|string|max:255',
-        ]);
-
-        // 2. Création de la nouvelle classe
-        Classe::create([
-            'name' => $request->name,
-            'level' => $request->level,
-        ]);
-        
-        // 3. Redirection avec un message de succès
-        return redirect()->route('pages.classes.create')->with('success', 'La classe a été créée avec succès !');
+        //
     }
 
     /**
-     * Affiche le formulaire pour modifier une classe existante.
+     * Display the specified resource.
      */
-    public function edit()
+    public function show(string $id)
     {
-        $classe = new Classe([
-            'id' => 1,
-            'name' => 'Classe de Test',
-            'level' => '5e',
-        ]);
-        // Retourne la vue d'édition et lui passe l'objet $classe trouvé
-        return view('pages.classes.edit', compact('classe'));
+        //
     }
 
     /**
-     * Met à jour la classe dans la base de données.
+     * Show the form for editing the specified resource.
      */
-      public function update(Request $request, Classe $classe)
+    public function edit(string $id)
     {
-        // 1. Validation des données
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'level' => 'required|string|max:255',
-        ]);
+        //
+    }
 
-        // 2. Mise à jour de la classe avec les nouvelles données du formulaire
-        $classe->update($request->all());
-        
-        // 3. Redirection avec un message de succès
-        return redirect()->route('pages.classes.create')->with('success', 'La classe a été mise à jour avec succès !');
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }
