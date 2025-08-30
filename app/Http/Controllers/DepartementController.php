@@ -12,6 +12,7 @@ class DepartementController extends Controller
     public function index()
     {
         //
+        return \view('pages.departments.index');
     }
 
     /**
