@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cours; // ✅ Consistent model name
 use Illuminate\Http\Request;
+
 
 class CoursController extends Controller
 {
@@ -20,46 +22,34 @@ class CoursController extends Controller
     public function create()
     {
         //
-        return view('pages.cours.create');
+    }
+    /** Store a newly created course in storage.
+     */
+    public function store(Request $request) {}
+
+    /**
+     * Display the specified cours.
+     */
+    public function show(Cours $cours)
+    {
+        return view('pages.cours.show', compact('cours'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Show the form for editing the specified course.
      */
-    public function store(Request $request)
+    public function edit(Cours $cours)
     {
-        //
+        return view('pages.cours.edit', compact('cours'));
     }
 
     /**
-     * Display the specified resource.
+     * Update the specified course in storage.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function update(Request $request, Cours $cours) {}
 
     /**
-     * Show the form for editing the specified resource.
+     * Remove the specified course from storage.
      */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy(Cours $cours) {}
 }
