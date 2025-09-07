@@ -8,24 +8,33 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     /**
-     * Affiche le formulaire de connexion
+     * Affiche le formulaire de connexion.
+     *
+     * @return \Illuminate\View\View
      */
-    public function showLogin()
+    public function showLoginForm()
     {
         return view('auth.login');
     }
 
     /**
-     * Traite la tentative de connexion
+     * Traite la tentative de connexion.
      */
     public function login(Request $request)
     {
-        // Valide les champs du formulaire
-
+        // Votre logique de validation et d'authentification va ici.
+        // C'est ici que vous vérifiez l'email et le mot de passe.
     }
 
     /**
-     * Déconnecte l’utilisateur
+     * Déconnecte l’utilisateur.
      */
-    public function logout(Request $request) {}
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+    }
 }

@@ -12,7 +12,7 @@
 
         <h2 class="text-3xl font-extrabold text-center mb-6 text-gray-800">Modifier la Classe</h2>
 
-        <form method="POST" action="{{ route('classes.update', $classe->id) }}">
+        <form method="POST" action="">
             @csrf
             @method('PUT') 
 
@@ -37,6 +37,7 @@
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required autofocus>
             </div>
+            l
 
             <div class="mb-4">
                 <label for="level" class="block text-gray-700 text-sm font-semibold mb-2">Niveau</label>

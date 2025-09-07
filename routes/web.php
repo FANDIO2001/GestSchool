@@ -2,127 +2,31 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\http\Controller\RegisController;
 use App\Http\Controllers\ClasseController;
-// use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CourController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ReponsibleController;
 use App\Http\Controllers\SessionController;
-use App\Http\Controllers\SpecialityController;
+use App\Http\Controllers\TeacherController;
 
-use App\Http\Middleware\RoleMiddleware;
-use App\Http\Middleware\ResponsableMiddleware;
-// Route::get('/pages/classes/create', [ClasseController::class, 'create'])->name('pages.classes.create');
-// Route::get('/classes/edit', [ClasseController::class, 'edit'])->name('classes.edit.test');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+// Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+// Route pour afficher le formulaire de création de classe
 // Route::put('/classes/{classe}', [ClasseController::class, 'update'])->name('classes.update');
-// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// Route::resource('cours', CourController::class);
-// //Route::get('/cours', [CourController::class, 'create'])->name('cours.create');
-
-// Route::get('/', function () {
-//     return view('layouts.app');
-// });
-
-
-
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::resource('cours', CourController::class);
+//Route::get('/cours', [CourController::class, 'create'])->name('cours.create');
+Route::get('/classes/{classe}/edit', [ClasseController::class, 'edit'])->name('classes.edit');
+// Fichier: routes/web.php
+Route::get('/classes/{classe}/edit', [ClasseController::class, 'edit'])->name('classes.edit');
+Route::get('/classes/create', [ClasseController::class, 'create'])->name('classes.create');
+Route::get('/student/create', [StudentController::class,'create'])->name('student.create');
 Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-// middleware('auth')->
-Route::get('/dashboard', function () {
-    return view('layouts.components.dashboard');
-})->name('dashboard');
-
-//gestion des departements---------------------------
-// ->middleware(['auth', RoleMiddleware::class . ':responsable'])
-Route::prefix('departements')->name('departements.')->controller(DepartementController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
-    Route::get('/{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'delete')->name('delete');
+    return view('layouts.app');
 });
-
-//Gestion des specialites----------------------------
-// ->middleware(['auth', RoleMiddleware::class . ':responsable'])
-Route::prefix('specialities')->name('specialities.')->controller(SpecialityController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
-    Route::get('/{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'delete')->name('delete');
-});
-
-//Gestion des classes---------------------------------
-// ->middleware(['auth', RoleMiddleware::class . ':responsable'])
-Route::prefix('classes')->name('classes.')->controller(ClasseController::class)->group(function () {
-    Route::get('/', 'seance')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
-    Route::get('/{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'delete')->name('delete');
-    Route::delete('/{id}/eleves', 'elevesParClasse')->name('eleves');
-});
-
-//Gestion des eleves---------------------------------
-
-Route::prefix('students')->name('students.')->controller(StudentController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
-    Route::get('/{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'delete')->name('delete');
-});
-
-//gestion des responsables--------------------------------------
-// ->middleware(['auth', ResponsableMiddleware::class . ':proviseur'])
-Route::prefix('resposibles')->name('resposibles.')->controller(ReponsibleController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
-    Route::get('/{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'delete')->name('delete');
-});
-
-//gestion des enseignants-------------------------------------
-// ->middleware(['auth', ResponsableMiddleware::class . ':CENSEUR'])
-Route::prefix('teachers')->name('teachers.')->controller(TeacherController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
-    Route::get('/{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'delete')->name('delete');
-});
-
-// gestion des seances de cours--------------------------------------
-
-Route::prefix('sessions')->name('sessions.')->controller(SessionController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
-    Route::get('/{id}', 'show')->name('show');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'delete')->name('delete');
-});
-
-// gestion de l'authentification--------------------------------
-
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/sessions/create', [SessionController::class, 'create'])->name('sessions.create');
+Route::get('/departements/create',[DepartementController::class,'create'])->name('departements.create');
+Route::get('/teashers/create',[TeacherController::class,'create'])->name('teashers.create');

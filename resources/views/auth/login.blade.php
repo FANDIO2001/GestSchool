@@ -5,54 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body class="bg-blue-50 flex items-center justify-center min-h-screen">
+<body class="bg-light">
 
-    <div class="w-full max-w-md bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="w-100" style="max-width: 450px;">
+            <div class="card shadow-lg p-4">
+                <h2 class="text-center mb-4 text-primary">GESTSHOOL</h2>
+                <form method="POST" action="{{ url('/login') }}">
+                    @csrf
 
-        <h2 class="text-3xl font-extrabold text-center mb-6 text-gray-800">GESTSHOOL</h2>
+                    @if ($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            <p class="fw-bold">Oups ! Une erreur est survenue.</p>
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-semibold">Adresse Email</label>
+                        <input type="email" id="email" name="email" value="{{ old('email') }}"
+                            class="form-control" placeholder="votre.email@exemple.com" required autofocus>
+                    </div>
 
-            @if ($errors->any())
-                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
-                    <p class="font-bold">Oups ! Une erreur est survenue.</p>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+                    <div class="mb-4">
+                        <label for="password" class="form-label fw-semibold">Mot de passe</label>
+                        <input type="password" id="password" name="password" class="form-control"
+                            placeholder="••••••••" required>
+                        <div class="text-end mt-2">
+                            <a href="#" class="text-decoration-none text-primary">Mot de passe oublié ?</a>
+                        </div>
+                    </div>
 
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Adresse Email</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="votre.email@exemple.com" required autofocus>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold">
+                        Se connecter
+                    </button>
+                </form>
             </div>
-
-            <div class="mb-6">
-                <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">Mot de passe</label>
-                <input type="password" id="password" name="password"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="••••••••" required>
-                <a href="#" class="block text-right text-sm text-blue-500 hover:text-blue-700 mt-2">Mot de passe
-                    oublié ?</a>
-            </div>
-
-            <button type="submit"
-                class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
-                Se connecter
-            </button>
-        </form>
-
-
+        </div>
     </div>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

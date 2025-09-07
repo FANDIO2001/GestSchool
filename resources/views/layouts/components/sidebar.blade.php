@@ -48,13 +48,13 @@
                               <ul class="nav nav-collapse">
                                   <li>
                                       <a data-bs-toggle="collapse" href="#subnav1">
-                                          <span class="sub-item">Gerer Les Classe</span>
+                                          <span class="sub-item">Gerer Les Classes</span>
                                           <span class="caret"></span>
                                       </a>
                                       <div class="collapse" id="subnav1">
                                           <ul class="nav nav-collapse subnav">
                                               <li>
-                                                  <a href="">
+                                                  <a href="{{ route('classes.create') }}">
                                                       <span class="sub-item">create_classe</span>
                                                   </a>
                                               </li>
@@ -67,15 +67,99 @@
                                       </div>
                                   </li>
                                   <li>
+                                      <a data-bs-toggle="collapse" href="#subnav1">
+                                          <span class="sub-item">Gerer Les Cours</span>
+                                          <span class="caret"></span>
+                                      </a>
+                                      <div class="collapse" id="subnav1">
+                                          <ul class="nav nav-collapse subnav">
+                                              <li>
+                                                  <a href="{{ route('cours.create') }}">
+                                                      <span class="sub-item">create_cours</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#">
+                                                      <span class="sub-item">Level 2</span>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </li>
+
+                                  <li>
+                                      <a data-bs-toggle="collapse" href="#subnav1">
+                                          <span class="sub-item">Gerer Les Sessions</span>
+                                          <span class="caret"></span>
+                                      </a>
+                                      <div class="collapse" id="subnav1">
+                                          <ul class="nav nav-collapse subnav">
+                                              <li>
+                                                  <a href="{{ route('sessions.create') }}">
+                                                      <span class="sub-item">create_session</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#">
+                                                      <span class="sub-item">Level 2</span>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </li>
+
+
+                                                      <li>
+                                      <a data-bs-toggle="collapse" href="#subnav1">
+                                          <span class="sub-item">Gerer Les Teachers</span>
+                                          <span class="caret"></span>
+                                      </a>
+                                      <div class="collapse" id="subnav1">
+                                          <ul class="nav nav-collapse subnav">
+                                              <li>
+                                                  <a href="{{ route('teashers.create') }}">
+                                                      <span class="sub-item">create_teasher</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#">
+                                                      <span class="sub-item">Level 2</span>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </li>
+
+                                       <li>
+                                      <a data-bs-toggle="collapse" href="#subnav1">
+                                          <span class="sub-item">Gerer Les departements</span>
+                                          <span class="caret"></span>
+                                      </a>
+                                      <div class="collapse" id="subnav1">
+                                          <ul class="nav nav-collapse subnav">
+                                              <li>
+                                                  <a href="{{ route('departements.create') }}">
+                                                      <span class="sub-item">create_departement</span>
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <a href="#">
+                                                      <span class="sub-item">Level 2</span>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </li>
+                                  <li>
                                       <a data-bs-toggle="collapse" href="#subnav2">
-                                          <span class="sub-item">Level 1</span>
+                                          <span class="sub-item">Gerer Les Eleves</span>
                                           <span class="caret"></span>
                                       </a>
                                       <div class="collapse" id="subnav2">
                                           <ul class="nav nav-collapse subnav">
                                               <li>
-                                                  <a href="#">
-                                                      <span class="sub-item">Level 2</span>
+                                                  <a href="{{ route('student.create') }}">
+                                                      <span class="sub-item">crate student</span>
                                                   </a>
                                               </li>
                                           </ul>

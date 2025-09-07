@@ -19,7 +19,7 @@ class DepartementController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.departements.create');
     }
 
     /**
