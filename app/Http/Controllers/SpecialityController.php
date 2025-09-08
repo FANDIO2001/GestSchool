@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Speciality;
 use Illuminate\Http\Request;
 
 class SpecialityController extends Controller
@@ -19,6 +20,7 @@ class SpecialityController extends Controller
      */
     public function create()
     {
+        return \view('pages.speciality.create');
         //
     }
 
@@ -28,6 +30,17 @@ class SpecialityController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
+        Speciality::create([
+            'title' => $request->title,
+            'description' => $request->description
+        ]);
+
+        return \redirect()->back()->with('succes', 'Departement ajoute avec succes');
     }
 
     /**

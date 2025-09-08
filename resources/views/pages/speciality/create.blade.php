@@ -3,15 +3,15 @@
     <div class="bg-gray-100 m-5 mb-0 p-5 shadow-lg ">
         <div class="card-header bg-indigo-700">
             <div class="d-flex align-items-center">
-                <h4 class="card-title">Ajouter un departement</h4>
-                <a href="{{ route('departements.index') }}" class="btn btn-primary btn-round ms-auto">
+                <h4 class="card-title">Ajouter une specialite</h4>
+                <a href="{{ route('specialities.index') }}" class="btn btn-primary btn-round ms-auto">
                     <i class="fa fa-eye"></i>
-                    Liste des Departements
+                    Liste des Specialites
                 </a>
             </div>
         </div>
         <br>
-        <form action="{{ route('departements.store') }} " method="POST">
+        <form action="{{ route('specialities.store') }} " method="POST">
             @csrf
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Intitule</label>

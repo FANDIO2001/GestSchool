@@ -42,10 +42,10 @@ Route::prefix('departements')->name('departements.')->controller(DepartementCont
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
-    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/show', 'show')->name('show');
     Route::get('/{id}/edit', 'edit')->name('edit');
     Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'delete')->name('delete');
+    Route::get('/{id}', 'destroy')->name('delete');
 });
 
 //Gestion des specialites----------------------------
@@ -91,7 +91,7 @@ Route::prefix('students')->name('students.')->controller(StudentController::clas
 
 //gestion des responsables--------------------------------------
 // ->middleware(['auth', ResponsableMiddleware::class . ':proviseur'])
-Route::prefix('resposibles')->name('resposibles.')->controller(ReponsibleController::class)->group(function () {
+Route::prefix('responsibles')->name('responsibles.')->controller(ReponsibleController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
