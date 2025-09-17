@@ -60,6 +60,18 @@ Route::prefix('specialities')->name('specialities.')->controller(SpecialityContr
     Route::delete('/{id}', 'delete')->name('delete');
 });
 
+//Gestion des ssessions----------------------------
+// ->middleware(['auth', RoleMiddleware::class . ':session'])
+Route::prefix('sessions')->name('sessions.')->controller(SessionController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}', 'update')->name('update');
+    Route::delete('/{id}', 'delete')->name('delete');
+});
+
 //Gestion des classes---------------------------------
 // ->middleware(['auth', RoleMiddleware::class . ':responsable'])
 Route::prefix('classes')->name('classes.')->controller(ClasseController::class)->group(function () {
@@ -115,7 +127,7 @@ Route::prefix('teachers')->name('teachers.')->controller(TeacherController::clas
 
 // gestion des seances de cours--------------------------------------
 
-Route::prefix('sessions')->name('sessions.')->controller(SessionController::class)->group(function () {
+Route::prefix('cours')->name('cours.')->controller(CourController::class)->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
@@ -124,6 +136,7 @@ Route::prefix('sessions')->name('sessions.')->controller(SessionController::clas
     Route::put('/{id}', 'update')->name('update');
     Route::delete('/{id}', 'delete')->name('delete');
 });
+
 
 // gestion de l'authentification--------------------------------
 

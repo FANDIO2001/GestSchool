@@ -1,58 +1,55 @@
-@extends('layouts.app')
+        @extends('layouts.app')
+        @section('content')
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-15 col-lg-15">
+                    <div class="card border-0 shadow-lg rounded-4">
+                        <div class="card-header bg-dark text-white text-center py-3 rounded-top-4">
+                            <h2 class="h3 fw-bold mb-0">Créer un Cours </h2>
+                        </div>
+            <div class="card-body p-5">
+                        @if ($errors->any())
+                            <div class="alert alert-danger rounded-3" role="alert">
+                                <h5 class="alert-heading fw-bold">Erreur(s) de validation :</h5>
+                                <ul class="mb-0">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-@section('content')
-    <div class="container mx-auto p-4">
-        <div class="w-full max-w-2xl bg-white p-8 rounded-xl shadow-lg border border-gray-200 mx-auto">
-            <h2 class="text-3xl font-extrabold text-center mb-6 text-gray-800">Créer un nouveau Cours</h2>
+                    <form method="POST" action="{{ route('cours.store') }}">
+                        @csrf
 
-            @if (session('success'))
-                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
-                    {{ session('success') }}
+                        @csrf
+                        {{-- Nom du cours --}}
+                        <div class="mb-4">
+                            <label for="coursname" class="form-label fw-semibold text-blac">Nom DU Cours</label>
+                            <input type="text" id="coursname" name="coursname" value="{{ old('coursname') }}"
+                                class="form-control form-control-lg rounded-pill @error('coursname') is-invalid @enderror" placeholder="coursname" required>
+                            @error('coursname')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Description</label>
+                            <textarea id="" cols="30" rows="10"class="form-control" name=" description"></textarea>
+                            @error('description')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        
+                        <div class="d-flex justify-content-center ">
+                            <button type="submit" class="btn btn-dark btn-lg fw-bold py-2 w-50 text-align: center rounded-pill">
+                                Créer Eleve
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
-                    <p class="font-bold">Erreur(s) de validation :</p>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <form method="POST" action="{{ route('cours.store') }}">
-                @csrf
-
-                <div class="mb-4">
-                    <label for="name" class="block text-gray-700 text-sm font-semibold mb-2">Nom du Cours</label>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        value="{{ old('name') }}"
-                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Ex: Mathématiques" 
-                        required autofocus>
-                </div>
-
-                <div class="mb-6">
-                    <label for="description" class="block text-gray-700 text-sm font-semibold mb-2">Description</label>
-                    <textarea 
-                        id="description" 
-                        name="description" 
-                        rows="4" 
-                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Ex: Cours d'introduction aux mathématiques pour le niveau 6e.">{{ old('description') }}</textarea>
-                </div>
-
-                <button 
-                    type="submit" 
-                    class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
-                    Créer le Cours
-                </button>
-            </form>
-        </div>
+            </div>
     </div>
-@endsection
+    </div>
+        @endsection

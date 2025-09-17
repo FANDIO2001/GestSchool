@@ -19,7 +19,8 @@ class SessionController extends Controller
      */
     public function create()
     {
-        //
+             return view('pages.sessions.create');
+
     }
 
     /**

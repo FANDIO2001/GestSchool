@@ -4,8 +4,8 @@
         <div class="card-header bg-indigo-700">
             <div class="d-flex align-items-center">
                 <h4 class="card-title">Ajouter une specialite</h4>
-                <a href="{{ route('specialities.index') }}" class="btn btn-primary btn-round ms-auto">
-                    <i class="fa fa-eye"></i>
+                <a href="{{ route('specialities.index') }}" class="btn btn-dark btn-round ms-auto">
+                    <i class="fa fa-eye "></i>
                     Liste des Specialites
                 </a>
             </div>
@@ -27,8 +27,11 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
-
-            <button type="submit" class="btn btn-primary ">Enregistrer</button>
+             <div class="d-flex justify-content-center ">
+                            <button type="submit" class="btn btn-dark btn-lg fw-bold py-2 w-50 text-align: center rounded-pill">
+                                Créer specialite
+                            </button>
+                        </div>
         </form>
     </div>
 @endsection

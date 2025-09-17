@@ -1,50 +1,66 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-gray-100 m-5 mb-0 p-5 shadow-lg ">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-15 col-lg-15">
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-header bg-dark text-white text-center py-3 rounded-top-4">
+                        <h2 class="h3 fw-bold mb-0">Créer une nouvelle Classe</h2>
+                    </div>
+                    <div class="card-body p-5">
+                        @if ($errors->any())
+                            <div class="alert alert-danger rounded-3" role="alert">
+                                <h5 class="alert-heading fw-bold">Erreur(s) de validation :</h5>
+                                <ul class="mb-0">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-        <h2 class="text-3xl font-extrabold text-center mb-6 text-gray-800">Créer une nouvelle Classe</h2>
+                        <form method="POST" action="{{ route('classes.store') }}">
+                            @csrf
 
-        <form method="POST" action=" ">
-            @csrf
+                            {{-- Nom de la classe --}}
+                            <div class="mb-4">
+                                <label for="name" class="form-label fw-semibold text-black">Nom de la Classe</label>
+                                <input type="text" id="name" name="name" value="{{ old('name') }}"
+                                    class="form-control form-control-lg rounded-pill @error('name') is-invalid @enderror" placeholder="Ex: 6e A" required autofocus>
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
 
-            @if ($errors->any())
-                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
-                    <p class="font-bold">Erreur(s) de validation :</p>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                            {{-- Niveau de la classe --}}
+                            <div class="mb-4">
+                                <label for="level" class="form-label fw-semibold text-black">Niveau</label>
+                                <select id="level" name="level"
+                                    class="form-select form-select-lg rounded-pill @error('level') is-invalid @enderror" required>
+                                    <option value="">Sélectionnez un niveau</option>
+                                    <option value="6e" {{ old('level') == '6e' ? 'selected' : '' }}>6ème</option>
+                                    <option value="5e" {{ old('level') == '5e' ? 'selected' : '' }}>5ème</option>
+                                    <option value="4e" {{ old('level') == '4e' ? 'selected' : '' }}>4ème</option>
+                                    <option value="3e" {{ old('level') == '3e' ? 'selected' : '' }}>3ème</option>
+                                    <option value="2nde" {{ old('level') == '2nde' ? 'selected' : '' }}>2nde</option>
+                                    <option value="1ère" {{ old('level') == '1ère' ? 'selected' : '' }}>1ère</option>
+                                    <option value="Terminale" {{ old('level') == 'Terminale' ? 'selected' : '' }}>Terminale</option>
+                                </select>
+                                @error('level')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-dark btn-lg fw-bold py-2 w-50 rounded-pill">
+                                    Créer la Classe
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            @endif
-
-            <div class="mb-4">
-                <label for="name" class="block text-gray-700 text-sm font-semibold mb-2">Nom de la Classe</label>
-                <input type="text" id="name" name="name" value="{{ old('name') }}"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Ex: 6e A" required autofocus>
             </div>
-
-            <div class="mb-4">
-                <label for="level" class="block text-gray-700 text-sm font-semibold mb-2">Niveau</label>
-                <select id="level" name="level"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                    <option value="">Sélectionnez un niveau</option>
-                    <option value="6e">6ème</option>
-                    <option value="5e">5ème</option>
-                    <option value="4e">4ème</option>
-                    <option value="3e">3ème</option>
-                    <option value="2nde">2nde</option>
-                    <option value="1ère">1ère</option>
-                    <option value="Terminale">Terminale</option>
-                </select>
-            </div>
-
-            <button type="submit"
-                class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
-                Créer la Classe
-            </button>
-        </form>
+        </div>
     </div>
 @endsection
