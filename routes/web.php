@@ -1,90 +1,149 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenue à GestSchool</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    </head>
-<body class="bg-gray-100 font-sans">
+<?php
 
-    <nav class="bg-white shadow-md">
-        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-gray-800">
-                Gest<span class="text-indigo-600">School</span>
-            </a>
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClasseController;
+// use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CourController;
+use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReponsibleController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\SpecialityController;
 
-            <div class="flex items-center space-x-4">
-                <a href="#" class="text-gray-600 hover:text-indigo-600 transition duration-300">Accueil</a>
-                <a href="#" class="text-gray-600 hover:text-indigo-600 transition duration-300">Fonctionnalités</a>
-                <a href="#" class="text-gray-600 hover:text-indigo-600 transition duration-300">Contact</a>
-            </div>
+use App\Http\Middleware\RoleMiddleware;
+use App\Http\Middleware\ResponsableMiddleware;
+// Route::get('/pages/classes/create', [ClasseController::class, 'create'])->name('pages.classes.create');
+// Route::get('/classes/edit', [ClasseController::class, 'edit'])->name('classes.edit.test');
+// Route::put('/classes/{classe}', [ClasseController::class, 'update'])->name('classes.update');
+// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Route::resource('cours', CourController::class);
+// //Route::get('/cours', [CourController::class, 'create'])->name('cours.create');
 
-            <div class="flex items-center space-x-4">
-                <a href="/login" class="bg-gray-200 text-gray-800 py-2 px-4 rounded-full font-semibold hover:bg-gray-300 transition duration-300">
-                    Se connecter
-                </a>
-                
-                <a href="/register" class="bg-indigo-600 text-white py-2 px-4 rounded-full font-semibold hover:bg-indigo-700 transition duration-300">
-                    S'inscrire
-                </a>
-            </div>
-        </div>
-    </nav>
+// Route::get('/', function () {
+//     return view('layouts.app');
+// });
 
-    <header class="bg-white shadow-md py-20">
-        <div class="container mx-auto text-center px-6">
-            <h1 class="text-5xl font-extrabold text-gray-800 leading-tight">
-                Gérez votre établissement scolaire <br> avec simplicité.
-            </h1>
-            <p class="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
-                GestSchool est la solution complète pour les enseignants, les élèves et les parents.
-            </p>
-            <div class="mt-8 flex justify-center space-x-4">
-                <a href="/register" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-700 transition duration-300">
-                    Commencer gratuitement
-                </a>
-                <a href="#" class="bg-white border-2 border-indigo-600 text-indigo-600 font-bold py-3 px-8 rounded-full text-lg hover:bg-indigo-50 transition duration-300">
-                    En savoir plus
-                </a>
-            </div>
-        </div>
-    </header>
 
-    <section class="py-16">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center text-gray-800">Nos fonctionnalités clés</h2>
-            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center">
-                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800">Gestion des cours</h3>
-                    <p class="mt-2 text-gray-600">Planifiez et suivez les cours facilement.</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center">
-                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800">Profils élèves</h3>
-                    <p class="mt-2 text-gray-600">Accédez aux informations et notes des élèves.</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center">
-                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800">Calendrier</h3>
-                    <p class="mt-2 text-gray-600">Ne manquez aucun événement important.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto text-center px-6">
-            <p>&copy; 2024 GestSchool. Tous droits réservés.</p>
-        </div>
-    </footer>
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
+// middleware('auth')->
+Route::get('/dashboard', function () {
+    return view('layouts.components.dashboard');
+})->name('dashboard');
 
-</body>
-</html>
+Route::get('/', function () {
+    return view('accueil'); // Le nom de votre nouvelle vue est 'accueil'
+});
+
+//gestion des departements---------------------------
+// ->middleware(['auth', RoleMiddleware::class . ':responsable'])
+Route::prefix('departements')->name('departements.')->controller(DepartementController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{id}/show', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}', 'update')->name('update');
+    Route::get('/{id}', 'destroy')->name('delete');
+});
+
+//Gestion des specialites----------------------------
+// ->middleware(['auth', RoleMiddleware::class . ':responsable'])
+Route::prefix('specialities')->name('specialities.')->controller(SpecialityController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}', 'update')->name('update');
+    Route::delete('/{id}', 'delete')->name('delete');
+});
+
+//Gestion des ssessions----------------------------
+// ->middleware(['auth', RoleMiddleware::class . ':session'])
+Route::prefix('sessions')->name('sessions.')->controller(SessionController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}', 'update')->name('update');
+    Route::delete('/{id}', 'delete')->name('delete');
+});
+
+//Gestion des classes---------------------------------
+// ->middleware(['auth', RoleMiddleware::class . ':responsable'])
+Route::prefix('classes')->name('classes.')->controller(ClasseController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+
+    Route::get('/', 'seance')->name('index');
+
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}', 'update')->name('update');
+    Route::delete('/{id}', 'delete')->name('delete');
+    // Route::delete('/{id}/eleves', 'elevesParClasse')->name('eleves');
+    Route::delete('/{id}/eleves', 'elevesParClasse')->name('eleves');
+});
+
+//Gestion des eleves---------------------------------
+
+Route::prefix('students')->name('students.')->controller(StudentController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}', 'update')->name('update');
+    Route::delete('/{id}', 'delete')->name('delete');
+});
+
+//gestion des responsables--------------------------------------
+// ->middleware(['auth', ResponsableMiddleware::class . ':proviseur'])
+Route::prefix('responsibles')->name('responsibles.')->controller(ReponsibleController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}', 'update')->name('update');
+    Route::delete('/{id}', 'delete')->name('delete');
+});
+
+//gestion des enseignants-------------------------------------
+// ->middleware(['auth', ResponsableMiddleware::class . ':CENSEUR'])
+Route::prefix('teachers')->name('teachers.')->controller(TeacherController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}', 'update')->name('update');
+    Route::delete('/{id}', 'delete')->name('delete');
+});
+
+// gestion des seances de cours--------------------------------------
+
+Route::prefix('cours')->name('cours.')->controller(CourController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::put('/{id}', 'update')->name('update');
+    Route::delete('/{id}', 'delete')->name('delete');
+});
+
+
+// gestion de l'authentification--------------------------------
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
