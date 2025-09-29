@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClasseController;
 // use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\CourController;
+use App\Http\Controllers\CoursController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -34,7 +34,7 @@ use App\Http\Middleware\ResponsableMiddleware;
 // middleware('auth')->
 Route::get('/dashboard', function () {
     return view('layouts.components.dashboard');
-})->name('dashboard');
+})->name('dashboard')->middleware('auth');
 
 Route::get('/', function () {
     return view('accueil'); // Le nom de votre nouvelle vue est 'accueil'
@@ -42,7 +42,7 @@ Route::get('/', function () {
 
 //gestion des departements---------------------------
 // ->middleware(['auth', RoleMiddleware::class . ':responsable'])
-Route::prefix('departements')->name('departements.')->controller(DepartementController::class)->group(function () {
+Route::prefix('departements')->name('departements.')->controller(DepartementController::class)->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
@@ -54,7 +54,7 @@ Route::prefix('departements')->name('departements.')->controller(DepartementCont
 
 //Gestion des specialites----------------------------
 // ->middleware(['auth', RoleMiddleware::class . ':responsable'])
-Route::prefix('specialities')->name('specialities.')->controller(SpecialityController::class)->group(function () {
+Route::prefix('specialities')->name('specialities.')->controller(SpecialityController::class)->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
@@ -66,7 +66,7 @@ Route::prefix('specialities')->name('specialities.')->controller(SpecialityContr
 
 //Gestion des ssessions----------------------------
 // ->middleware(['auth', RoleMiddleware::class . ':session'])
-Route::prefix('sessions')->name('sessions.')->controller(SessionController::class)->group(function () {
+Route::prefix('sessions')->name('sessions.')->controller(SessionController::class)->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
@@ -78,7 +78,7 @@ Route::prefix('sessions')->name('sessions.')->controller(SessionController::clas
 
 //Gestion des classes---------------------------------
 // ->middleware(['auth', RoleMiddleware::class . ':responsable'])
-Route::prefix('classes')->name('classes.')->controller(ClasseController::class)->group(function () {
+Route::prefix('classes')->name('classes.')->controller(ClasseController::class)->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
 
     Route::get('/', 'seance')->name('index');
@@ -95,7 +95,7 @@ Route::prefix('classes')->name('classes.')->controller(ClasseController::class)-
 
 //Gestion des eleves---------------------------------
 
-Route::prefix('students')->name('students.')->controller(StudentController::class)->group(function () {
+Route::prefix('students')->name('students.')->controller(StudentController::class)->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
@@ -107,7 +107,7 @@ Route::prefix('students')->name('students.')->controller(StudentController::clas
 
 //gestion des responsables--------------------------------------
 // ->middleware(['auth', ResponsableMiddleware::class . ':proviseur'])
-Route::prefix('responsibles')->name('responsibles.')->controller(ReponsibleController::class)->group(function () {
+Route::prefix('responsibles')->name('responsibles.')->controller(ReponsibleController::class)->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
@@ -119,7 +119,7 @@ Route::prefix('responsibles')->name('responsibles.')->controller(ReponsibleContr
 
 //gestion des enseignants-------------------------------------
 // ->middleware(['auth', ResponsableMiddleware::class . ':CENSEUR'])
-Route::prefix('teachers')->name('teachers.')->controller(TeacherController::class)->group(function () {
+Route::prefix('teachers')->name('teachers.')->controller(TeacherController::class)->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');
@@ -131,7 +131,7 @@ Route::prefix('teachers')->name('teachers.')->controller(TeacherController::clas
 
 // gestion des seances de cours--------------------------------------
 
-Route::prefix('cours')->name('cours.')->controller(CourController::class)->group(function () {
+Route::prefix('cours')->name('cours.')->controller(CoursController::class)->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/', 'store')->name('store');

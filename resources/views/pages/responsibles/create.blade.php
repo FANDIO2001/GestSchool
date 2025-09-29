@@ -51,7 +51,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Responsabilite</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" name="responsabilite">
+                <input type="text" class="form-control" id="exampleInputEmail1" name="responsability">
                 @error('responsabilite')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -90,11 +90,11 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
-<div class="d-flex justify-content-center ">
-                            <button type="submit" class="btn btn-dark btn-lg fw-bold py-2 w-50 text-align: center rounded-pill">
-                                Créer responsable
-                            </button>
-                        </div>
+            <div class="d-flex justify-content-center ">
+                <button type="submit" class="btn btn-dark btn-lg fw-bold py-2 w-30 text-align: center rounded-pill">
+                    Sauvegarder
+                </button>
+            </div>
         </form>
     </div>
 @endsection

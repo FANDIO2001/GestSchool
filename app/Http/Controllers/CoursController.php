@@ -22,10 +22,23 @@ class CoursController extends Controller
     public function create()
     {
         //
+          return view('pages.cours.create');
+
     }
     /** Store a newly created course in storage.
      */
-    public function store(Request $request) {}
+    public function store(Request $request) {
+             $request->validate([
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
+        Cours::create([
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+        return redirect()->back()->with('success', 'Cour ajouté avec succès!');
+    }
 
     /**
      * Display the specified cours.

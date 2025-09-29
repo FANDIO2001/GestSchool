@@ -13,6 +13,8 @@ class SpecialityController extends Controller
     public function index()
     {
         //
+        $specialities = Speciality::all();
+        return \view('pages.speciality.index',compact('specialities'));
     }
 
     /**

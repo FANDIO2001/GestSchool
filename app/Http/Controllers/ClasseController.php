@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Speciality;
 use Illuminate\Http\Request;
-
+use App\Models\Classe;
 class ClasseController extends Controller
 {
     /**
@@ -20,7 +21,8 @@ class ClasseController extends Controller
     public function create()
     {
         //
-        return view('pages.classes.create');
+        $specialities = Speciality::all();
+        return view('pages.classes.create',\compact('specialities'));
     }
 
     /**
@@ -29,6 +31,15 @@ class ClasseController extends Controller
     public function store(Request $request)
     {
         //
+          $request->validate([
+            'title' => 'required',
+            'speciality_id' => 'required'
+        ]);
+        classe::create([
+            'title' => $request->title,
+            'speciality_id' => $request->speciality_id
+        ]);
+        return redirect()->back()->with('success', 'La classe a ete ajoutee');
     }
 
     /**

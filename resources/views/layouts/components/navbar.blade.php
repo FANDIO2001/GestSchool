@@ -1,6 +1,6 @@
-  <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+  <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom bg-dark ">
       <div class="container-fluid">
-          <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+          <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex ">
               <div class="input-group">
                   <div class="input-group-prepend">
                       <button type="submit" class="btn btn-search pe-1">
@@ -58,13 +58,15 @@
 
 
               <li class="nav-item topbar-user dropdown hidden-caret">
-                  <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+                  <a class="dropdown-toggle profile-pic text-white" data-bs-toggle="dropdown" href="#"
+                      aria-expanded="false">
                       <div class="avatar-sm">
-                          <img src="assets/img/loic.jpg" alt="..." class="avatar-img rounded-circle" />
+                          <i class="fas fa-user mt-3 " style="font-size: 20px"></i>
+
                       </div>
-                      <span class="profile-username">
+                      <span class="profile-username mt-2">
                           <span class="op-7">Hello,</span>
-                          <span class="fw-bold">FRANCK</span>
+                          <span class="fw-bold"> {{ Auth::user()->lastname }}</span>
                       </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -72,18 +74,23 @@
                           <li>
                               <div class="user-box">
                                   <div class="avatar-lg">
-                                      <img src="assets/img/loic.jpg"alt="image profile"class="avatar-img rounded" />
+                                      {{-- <img src="assets/img/loic.jpg"alt="image profile" class="avatar-img rounded" /> --}}
+                                      <i class="fas fa-user "></i>
                                   </div>
                                   <div class="u-text">
-                                      <h4>franck</h4>
-                                      <p class="text-muted">ghomsifranch@gmail.com</p>
+                                      <h4> {{ Auth::user()->lastname }}</h4>
+                                      <p class="text-muted"> {{ Auth::user()->email }}</p>
                                   </div>
                               </div>
                           </li>
                           <li>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item btn btn-info my-2" href="#">Mon profil</a>
-                              <a class="dropdown-item btn btn-danger" href="#">Logout</a>
+                              <form action="{{ route('logout') }}" method="POST">
+                                  @csrf
+                                  <button type="submit"class="dropdown-item btn btn-danger">Logout</button>
+                              </form>
+                              {{-- <a class="dropdown-item btn btn-danger" href="{{ route('logout') }}">Logout</a> --}}
                           </li>
                       </div>
                   </ul>

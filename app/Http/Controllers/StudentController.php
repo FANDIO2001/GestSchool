@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classe;
+use App\Models\Classe_Student;
+use App\Models\Student;
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -19,7 +25,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return \view('pages.student.create');
+           $classes = Classe::with('speciality')->get();
+        return \view('pages.student.create',\compact('classes'));
     }
 
     /**
@@ -28,6 +35,48 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
+           $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email|unique:users',
+            'address' => 'required',
+            'password' => 'required|confirmed|min:6',
+            'fathersName' => 'required',
+            'mothersName' => 'required',
+            'phone_number' => 'required',
+            'phone' => 'required',
+            'classe_id' => 'required|exists:classes,id',
+    
+        ]);
+      //   dd($request);
+        DB::transaction(function () use ($request) {
+            $user = User::create([
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'address' => $request->address,
+                'password' => bcrypt($request->password),
+                'phone' => $request->phone,
+                'rule' => 'eleve',
+                'slug' => Str::slug($request->firstname . '-' . \uniqid()),
+            ]);
+
+            $student = Student::create([
+                'user_id' => $user->id,
+                'fathersName' => $request->fathersName,
+                'mothersName' => $request->mothersName,
+                'stus' => 'regulier',
+                'phone_number' => $request->phone_number,
+            ]);
+
+            Classe_Student::create([
+                'student_id' => $student->id,
+                'classe_id' => $request->classe_id,
+                'annee' => $request->annee,
+            ]);
+        });
+
+        return redirect()->back()->with('success', 'Élève créé avec succès.');
     }
 
     /**
@@ -36,6 +85,7 @@ class StudentController extends Controller
     public function show(string $id)
     {
         //
+        
     }
 
     /**

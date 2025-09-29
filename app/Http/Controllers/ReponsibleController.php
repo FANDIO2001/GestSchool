@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\User;
+use App\Models\Responsible;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 class ReponsibleController extends Controller
 {
     /**
@@ -29,6 +32,36 @@ class ReponsibleController extends Controller
     public function store(Request $request)
     {
         //
+            $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email|unique:users',
+            'address' => 'required',
+            'password' => 'required|confirmed|min:6',
+            'phone' => 'required',
+            'responsability' => 'required',
+        ]);
+        // dd($request);
+        DB::transaction(function () use ($request) {
+            $user = User::create([
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'address' => $request->address,
+                'password' => bcrypt($request->password),
+                'phone' => $request->phone,
+                'rule' => 'responsable',
+                'slug' => Str::slug($request->firstname . '-' . \uniqid()),
+            ]);
+
+            Responsible::create([
+                'user_id' => $user->id,
+                'responsability' => $request->responsability,
+
+            ]);
+        });
+
+        return redirect()->back()->with('success', 'Responsable créé avec succès.');
     }
 
     /**

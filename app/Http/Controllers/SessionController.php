@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cours_Session;
+use App\Models\Classe_Student;
+use App\Models\Classe;
+use App\Models\Cours;
 use Illuminate\Http\Request;
 
 class SessionController extends Controller
@@ -17,9 +21,27 @@ class SessionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-             return view('pages.sessions.create');
+        $classeId = $request->input('classe_id');
+        $matiereId = $request->input('matiere_id');
+        // Chargement des données associées
+        $classe = Classe::with('speciality')->findOrFail($classeId);
+        $matiere = Cours::findOrFail($matiereId);
+
+        // Vérifie que les deux valeurs sont bien présentes
+        abort_if(!$classeId || !$matiereId, 400, 'Classe ou matière manquante');
+
+
+        if ($classeId) {
+            $classes = Classe::with('speciality')->findOrFail($classeId);
+        }
+        $eleves = Classe_Student::with('eleve')
+            ->where('classe_id', $classeId)
+            ->get()
+            ->pluck('eleve');
+        $matieres = Cours::all();
+        return view('pages.sessions.create', compact('classes', 'eleves', 'matiere', 'matieres'));
 
     }
 

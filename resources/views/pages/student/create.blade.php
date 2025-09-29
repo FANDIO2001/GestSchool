@@ -1,92 +1,147 @@
 @extends('layouts.app')
 @section('content')
-
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-15 col-lg-15">
-            <div class="card border-0 shadow-lg rounded-4">
-                <div class="card-header bg-dark text-white text-center py-3 rounded-top-4">
-                    <h2 class="h3 fw-bold mb-0">Créer un Nouvel Eleve </h2>
-                </div>
-
-                <div class="card-body p-5">
-                    @if ($errors->any())
-                        <div class="alert alert-danger rounded-3" role="alert">
-                            <h5 class="alert-heading fw-bold">Erreur(s) de validation :</h5>
-                            <ul class="mb-0">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('students.store') }}">
-                        @csrf
-                        {{-- Nom du père --}}
-                        <div class="mb-4">
-                            <label for="fathersname" class="form-label fw-semibold text-gray-700">Nom du père</label>
-                            <input type="text" id="fathersname" name="fathersname" value="{{ old('fathersname') }}"
-                                class="form-control form-control-lg rounded-pill @error('fathersname') is-invalid @enderror" placeholder="Nom du père" required>
-                            @error('fathersname')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- Nom de la mère --}}
-                        <div class="mb-4">
-                            <label for="mothersname" class="form-label fw-semibold text-gray-700">Nom de la mère</label>
-                            <input type="text" id="mothersname" name="mothersname" value="{{ old('mothersname') }}"
-                                class="form-control form-control-lg rounded-pill @error('mothersname') is-invalid @enderror" placeholder="Nom de la mère" required>
-                            @error('mothersname')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- Numéro de téléphone --}}
-                        <div class="mb-4">
-                            <label for="phone_number" class="form-label fw-semibold text-gray-700">Numéro de téléphone des parents</label>
-                            <input type="text" id="phone_number" name="phone_number" value="{{ old('phone_number') }}"
-                                class="form-control form-control-lg rounded-pill @error('phone_number') is-invalid @enderror" placeholder="Ex: +237 670 83 53 55" required>
-                            @error('phone_number')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- Matricule --}}
-                        <div class="mb-4">
-                            <label for="matricule" class="form-label fw-semibold text-gray-700">Matricule</label>
-                            <input type="text" id="matricule" name="matricule" value="{{ old('matricule') }}"
-                                class="form-control form-control-lg rounded-pill @error('matricule') is-invalid @enderror" placeholder="Ex: S12345678" required>
-                            @error('matricule')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        {{-- Statut de l'étudiant --}}
-                        <div class="mb-5">
-                            <label for="stus" class="form-label fw-semibold text-gray-700">Statut</label>
-                            <select id="stus" name="stus" class="form-select form-control-lg rounded-pill @error('stus') is-invalid @enderror" required>
-                                <option value="regulier" {{ old('stus') == 'regulier' ? 'selected' : '' }}>Régulier</option>
-                                <option value="irregulier" {{ old('stus') == 'irregulier' ? 'selected' : '' }}>Irrégulier</option>
-                                <option value="demissionnaire" {{ old('stus') == 'demissionnaire' ? 'selected' : '' }}>Démissionnaire</option>
-                                <option value="exclu" {{ old('stus') == 'exclu' ? 'selected' : '' }}>Exclu</option>
-                                <option value="observation" {{ old('stus') == 'observation' ? 'selected' : '' }}>Observation</option>
-                            </select>
-                            @error('stus')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                       <div class="d-flex justify-content-center ">
-                            <button type="submit" class="btn btn-dark btn-lg fw-bold py-2 w-50 text-align: center rounded-pill">
-                                Créer Eleve
-                            </button>
-                        </div>
-                    </form>
-                </div>
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('error '))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    <div class="bg-gray-100 m-5 mb-0 p-5 shadow-lg ">
+        <div class="card-header bg-indigo-700">
+            <div class="d-flex align-items-center">
+                <h4 class="card-title">Ajouter un Eleve</h4>
+                <a href="{{ route('students.index') }}" class="btn btn-dark btn-round ms-auto">
+                    <i class="fa fa-eye"></i>
+                    Liste des Eleves
+                </a>
             </div>
         </div>
+        <br>
+        <form action="{{ route('students.store') }} " method="POST">
+            @csrf
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Nom</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="firstname"
+                    placeholder="Nom de l'eleve">
+                @error('firstname')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Prenom</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="lastname"
+                    placeholder="Prenom de l'eleve">
+                @error('lastname')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Residence</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="address"
+                    placeholder="Residence de l'eleve">
+                @error('address')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Nom du pere</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="fathersName"
+                    placeholder="Fathers'name">
+                @error('fathersname')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Nom de la mere</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="mothersName"
+                    placeholder="Mothers'name">
+                @error('mothersname')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Telephone des parents</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="phone_number"
+                    placeholder="Telephone des parents">
+                @error('phone_number')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Date d'inscription</label>
+                <input type="date" class="form-control" id="exampleInputEmail1" name="annee"
+                    placeholder="Telephone des parents">
+                @error('annee')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Numero de Telephone</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="phone"
+                    placeholder="Numero de telephone">
+                @error('phone')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="email"
+                    placeholder="Votre adresse email">
+                @error('email')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" id="exampleInputEmail1" name="password"
+                    placeholder="Password">
+                @error('password')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Confirmer le mot de passe</label>
+                <input type="password" class="form-control" id="exampleInputEmail1" name="password_confirmation"
+                    placeholder="confirm password">
+                @error('password_confirmation')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Classe</label><br>
+                <select name="classe_id" id="" class="form-control">
+                    @foreach ($classes as $classe)
+                        <option value="{{ $classe->id }}">
+                            {{ $classe->title }}-{{ $classe->speciality->title }}
+                        </option>
+                    @endforeach
+
+                </select>
+                @error('password_confirmation')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+
+
+            <button type="submit" class="btn btn-dark btn-lg fw-bold py-2 w-30 text-align: center rounded-pill">
+                Sauvegarder
+            </button>
+        </form>
     </div>
-</div>
 @endsection

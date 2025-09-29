@@ -2,16 +2,15 @@
 @section('content')
     <div class="page-inner">
         <div class="row">
-            <hr class="bg-dark" style="height: 5px;">
             <div class="col-md-12">
+                <hr class="bg-dark" style="height: 5px;">
                 <div class="card">
                     <div class="card-header">
-
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title"> Departements</h4>
-                            <a href="{{ route('departements.create') }}" class="btn btn-dark btn-round ms-auto">
+                            <h4 class="card-title"> Specialites</h4>
+                            <a href="{{ route('specialities.create') }}" class="btn btn-dark btn-round ms-auto">
                                 <i class="fa fa-plus"></i>
-                                Ajouter Departement
+                                Ajouter Specialite
                             </a>
                         </div>
                     </div>
@@ -90,25 +89,25 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-                                    @foreach ($departments as $department)
+                                    @foreach ($specialities as $speciality)
                                         <tr>
-                                            <td>{{ $department->title }}</td>
-                                            <td>{{ $department->description }}</td>
+                                            <td>{{ $speciality->title }}</td>
+                                            <td>{{ $speciality->description }}</td>
 
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a href="{{ route('departements.edit', $department) }}"
+                                                    <a href="{{ route('specialities.edit', $speciality->id) }}"
                                                         data-bs-toggle="tooltip" title=""
                                                         class="btn btn-link btn-primary btn-lg"
                                                         data-original-title="Edit Task">
                                                         <i class="fa fa-edit"></i>
                                                         </button>
-                                                        <a href="{{ route('departements.delete', $department->id) }}"
+                                                        <a href="{{ route('specialities.delete', $speciality->id) }}"
                                                             title="" class="btn btn-link btn-danger">
                                                             {{-- data-original-title="Remove" --}}
                                                             <i class="fa fa-times"></i>
                                                         </a>
-                                                        <a href="{{ route('departements.show', $department->id) }}"
+                                                        <a href="{{ route('specialities.show', $speciality->id) }}"
                                                             title="" class="btn btn-link btn-success">
                                                             {{-- data-original-title="Remove" --}}
                                                             <i class="fa fa-eye"></i>
