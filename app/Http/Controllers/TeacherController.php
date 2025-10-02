@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Classe;
 use App\Models\Day;
 use App\Models\Time_Maging;
+use App\Models\Department;
 
 class TeacherController extends Controller
 {
@@ -18,8 +19,8 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
-        return \view('pages.teachers.index');
+        $teachers = Teacher::with(['user', 'department', 'timeMagings.day', 'timeMagings.classe.speciality'])->get();
+        return \view('pages.teachers.index', \compact('teachers'));
     }
 
     /**
@@ -30,7 +31,8 @@ class TeacherController extends Controller
         //
         $classes = Classe::with('speciality')->get();
         $days = Day::all();
-        return \view('pages.teachers.create', \compact('days', 'classes'));
+        $departments = Department::all();
+        return \view('pages.teachers.create', \compact('days', 'classes', 'departments'));
     }
 
     /**
@@ -45,6 +47,7 @@ class TeacherController extends Controller
             'address' => 'required',
             'password' => 'required|confirmed|min:6',
             'phone' => 'required',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
         DB::transaction(function () use ($request) {
@@ -61,8 +64,7 @@ class TeacherController extends Controller
 
             $teachers = Teacher::create([
                 'user_id' => $user->id,
-              //  'responsable_id' => '1',
-              //  'departement_id' => '1',
+                'department_id' => $request->department_id,
                 'statut' => 'actif',
             ]);
 
@@ -112,6 +114,8 @@ class TeacherController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $teachers = Teacher::find($id);
+        $teachers->delete();
+        return \redirect()->back()->with('success', 'Enseignant supprime avec succes');
     }
 }

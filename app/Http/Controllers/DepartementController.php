@@ -83,7 +83,6 @@ class DepartementController extends Controller
         $departments = Department::find($id);
         $departments->delete();
         return \redirect()->back()->with('success', 'Departement supprime avec succes');
-        //\dd($departments);
-        // return 'ok';
+       
     }
 }

@@ -15,5 +15,16 @@ class Classe_Student extends Model
     'classe_id',
     'annee'
     ];
-    //
+    
+    // Relation avec la classe
+    public function classe()
+    {
+        return $this->belongsTo(Classe::class);
+    }
+    
+    // Relation avec l'élève
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 }

@@ -13,10 +13,10 @@ class Teacher extends Model
      protected $fillable = [
         'user_id',
         'matricule',
-       //s 'responsible_id',
-        // 'departement_id',
+        'department_id',
+        'statut',
     ];
-    //
+    
      protected static function booted()
     {
         static::creating(function ($enseignant) {
@@ -26,5 +26,23 @@ class Teacher extends Model
 
             $enseignant->matricule = $matricule;
         });
+    }
+    
+    // Relation avec l'utilisateur
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+    // Relation avec le département
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+    
+    // Relation avec les horaires (Time_Maging)
+    public function timeMagings()
+    {
+        return $this->hasMany(Time_Maging::class);
     }
 }

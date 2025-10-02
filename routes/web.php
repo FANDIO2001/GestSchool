@@ -126,7 +126,7 @@ Route::prefix('teachers')->name('teachers.')->controller(TeacherController::clas
     Route::get('/{id}', 'show')->name('show');
     Route::get('/{id}/edit', 'edit')->name('edit');
     Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'delete')->name('delete');
+    Route::delete('/{id}', 'destroy')->name('delete');
 });
 
 // gestion des seances de cours--------------------------------------

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('matricule');
             $table->enum('statut', ['actif', 'inactif', 'suspendu', 'observation']);
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('department_id')->nullable()->constrained('departments')->onDelete('set null');
             $table->timestamps();
         });
     }

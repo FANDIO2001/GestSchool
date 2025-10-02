@@ -69,6 +69,29 @@
                             </ul>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#coursesMenu">
+                            <i class="fas fa-book-open"></i>
+                            <p>Cours</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="coursesMenu">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="{{ route('cours.create') }}">
+                                        <i class="fas fa-plus"></i>
+                                        <span>Ajouter un cours</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('cours.index') }}">
+                                        <i class="fas fa-list-alt"></i>
+                                        <span>Liste des Cours</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     <hr>
 
 
@@ -241,13 +264,13 @@
                     <li class="nav-item">
                         <a data-bs-toggle="collapse" href="#sessiondate">
                             <i class="fas fa-calendar-alt"></i>
-                            <p>Session</p>
+                            <p>Seances</p>
                             <span class="caret"></span>
                         </a>
                         <div class="collapse" id="sessiondate">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="{{ route('sessions.create') }}">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <i class="fas fa-plus"></i>
                                         <span>ajouter une Seance de cous</span>
                                     </a>
@@ -286,29 +309,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
-                        <a data-bs-toggle="collapse" href="#coursesMenu">
-                            <i class="fas fa-book-open"></i>
-                            <p>Cours</p>
-                            <span class="caret"></span>
-                        </a>
-                        <div class="collapse" id="coursesMenu">
-                            <ul class="nav nav-collapse">
-                                <li>
-                                    <a href="{{ route('cours.create') }}">
-                                        <i class="fas fa-plus"></i>
-                                        <span>Ajouter un cours</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('cours.index') }}">
-                                        <i class="fas fa-list-alt"></i>
-                                        <span>Liste des Cours</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+
 
                     <li class="nav-item">
                         <a href="widgets.html">
@@ -330,6 +331,8 @@
         </div>
     </div>
 </div>
+
+{{-- Modal pour afficher les classes et les matieres --}}
 <div class="modal fade mt-20" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -350,7 +353,7 @@
                                 <option value="">-- Sélectionner une classe --</option>
                                 @foreach ($classes as $classe)
                                     <option value="{{ $classe->id }}">
-                                        {{ $classe->intitule }} - {{ $classe->specialite->intitule }}
+                                        {{ $classe->title }} - {{ $classe->speciality->title }}
                                     </option>
                                 @endforeach
                             </select>
@@ -362,7 +365,7 @@
                             <select class="form-select" name="cour_id" id="cour_id" required>
                                 <option value="">-- Sélectionner une matière --</option>
                                 @foreach ($matieres as $matiere)
-                                    <option value="{{ $matiere->id }}">{{ $matiere->intitule }}</option>
+                                    <option value="{{ $matiere->id }}">{{ $matiere->title }}</option>
                                 @endforeach
                             </select>
                         </div>

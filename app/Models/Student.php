@@ -24,5 +24,10 @@ class Student extends Model
             $student->matricule = $matricule;
         });
     }
-    //
+    
+    // Relation avec l'utilisateur
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

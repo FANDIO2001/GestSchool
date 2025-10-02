@@ -10,6 +10,20 @@
             <input type="email" name="email" class="form-control mb-3" placeholder="Email" required>
             <input type="text" name="address" class="form-control mb-3" placeholder="Residence" required>
             <input type="text" name="phone" class="form-control mb-3" placeholder="Numero de telephone" required>
+            
+            <div class="mb-3">
+                <label for="department_id" class="form-label fw-bold">Département</label>
+                <select name="department_id" id="department_id" class="form-select" required>
+                    <option value="">-- Sélectionner un département --</option>
+                    @foreach ($departments as $department)
+                        <option value="{{ $department->id }}">{{ $department->title }}</option>
+                    @endforeach
+                </select>
+                @error('department_id')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+            </div>
+            
             <input type="password" name="password" class="form-control mb-3" placeholder="Mot de passe" required>
             <input type="password" name="password_confirmation" class="form-control mb-3"
                 placeholder="Confirmer le mot de passe" required>
