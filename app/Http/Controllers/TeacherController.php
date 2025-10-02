@@ -90,7 +90,8 @@ class TeacherController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $teacher = Teacher::with(['user', 'department', 'timeMagings.day', 'timeMagings.classe.speciality'])->findOrFail($id);
+        return \view('pages.teachers.show', \compact('teacher'));
     }
 
     /**
@@ -98,7 +99,11 @@ class TeacherController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $teacher = Teacher::with(['user', 'department', 'timeMagings'])->findOrFail($id);
+        $classes = Classe::with('speciality')->get();
+        $days = Day::all();
+        $departments = Department::all();
+        return \view('pages.teachers.edit', \compact('teacher', 'classes', 'days', 'departments'));
     }
 
     /**
@@ -106,7 +111,56 @@ class TeacherController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email|unique:users,email,' . Teacher::findOrFail($id)->user_id,
+            'address' => 'required',
+            'phone' => 'required',
+            'department_id' => 'required|exists:departments,id',
+            'statut' => 'required|in:actif,inactif,suspendu,observation',
+        ]);
+
+        DB::transaction(function () use ($request, $id) {
+            $teacher = Teacher::findOrFail($id);
+            
+            // Mise à jour de l'utilisateur
+            $teacher->user->update([
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'address' => $request->address,
+                'phone' => $request->phone,
+            ]);
+
+            // Mise à jour de l'enseignant
+            $teacher->update([
+                'department_id' => $request->department_id,
+                'statut' => $request->statut,
+            ]);
+
+            // Suppression des anciens horaires
+            $teacher->timeMagings()->delete();
+
+            // Ajout des nouveaux horaires
+            if ($request->has('horaires')) {
+                foreach ($request->horaires as $day_id => $horaires) {
+                    foreach ($horaires as $index => $beginning) {
+                        if (!empty($beginning) && !empty($request->end[$day_id][$index]) && !empty($request->classes[$day_id][$index])) {
+                            Time_Maging::create([
+                                'teacher_id' => $teacher->id,
+                                'day_id'       => $day_id,
+                                'classe_id'     => $request->classes[$day_id][$index],
+                                'beginning'   => $beginning,
+                                'end'     => $request->end[$day_id][$index],
+                            ]);
+                        }
+                    }
+                }
+            }
+        });
+
+        return redirect()->route('teachers.show', $id)->with('success', 'Enseignant modifié avec succès');
     }
 
     /**

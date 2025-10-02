@@ -47,12 +47,37 @@
         <!-- End Sidebar -->
 
         <div class="main-panel">
-            <div class="main-header">
-
+            <!-- Header mobile visible uniquement sur petits écrans -->
+            <div class="main-header d-lg-none bg-dark position-sticky top-0" style="z-index: 1000;">
+                <div class="d-flex align-items-center justify-content-between p-3">
+                    <button class="btn btn-toggle sidenav-toggler text-white" type="button">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                    <h5 class="text-white mb-0 fw-bold">GESTSCHOOL</h5>
+                    <div class="dropdown">
+                        <button class="btn text-white dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Mon profil</a></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Header desktop -->
+            <div class="main-header d-none d-lg-block">
                 <!-- Navbar Header -->
                 @include('layouts.components.navbar')
                 <!-- End Navbar -->
             </div>
+            
             <hr style="height: 5px;background-color:blue;">
             <div class="container">
                 @yield('content')
