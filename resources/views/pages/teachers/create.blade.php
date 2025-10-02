@@ -71,7 +71,7 @@
                     <input type="time" name="horaires[${jourId}][]" class="form-control" placeholder="Début">
                 </div>
                 <div class="col">
-                    <input type="time" name="fins[${jourId}][]" class="form-control" placeholder="Fin">
+                    <input type="time" name="end[${jourId}][]" class="form-control" placeholder="Fin">
                 </div>
                 <div class="col">
                     <select name="classes[${jourId}][]" class="form-select">
